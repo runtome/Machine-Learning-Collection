@@ -18,6 +18,7 @@ from tqdm import tqdm
 from torchvision.utils import save_image
 from discriminator_model import Discriminator
 from generator_model import Generator
+import os 
 
 
 def train_fn(
@@ -93,6 +94,9 @@ def train_fn(
         g_scaler.update()
 
         if idx % 200 == 0:
+            save_dir = 'saved_images'
+            if not os.path.exists(save_dir):
+                os.makedirs(save_dir)
             save_image(fake_horse * 0.5 + 0.5, f"saved_images/horse_{idx}.png")
             save_image(fake_zebra * 0.5 + 0.5, f"saved_images/zebra_{idx}.png")
 
